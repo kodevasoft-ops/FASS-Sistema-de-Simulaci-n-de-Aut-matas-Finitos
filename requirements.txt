@@ -1,0 +1,4 @@
+# FASS v3 — Dependencias para Render.com
+flask>=3.0.0
+flask-cors>=4.0.0
+gunicorn>=22.0.0

@@ -1,0 +1,33 @@
+# ============================================================
+# render.yaml — Configuración de despliegue para Render.com
+# ============================================================
+# Este archivo le dice a Render cómo construir y ejecutar FASS v3.
+#
+# ¿Cómo usarlo?
+#   1. Sube este proyecto a un repositorio GitHub/GitLab
+#   2. En Render: New → Web Service → conecta tu repositorio
+#   3. Render detecta este archivo automáticamente
+#   4. Haz clic en "Deploy"
+#
+# URL resultante: https://fass-v3.onrender.com (o el nombre que elijas)
+# ============================================================
+
+services:
+  - type: web
+    name: fass-v3
+    runtime: python
+    # Directorio raíz del proyecto (donde está app.py)
+    rootDir: .
+    # Comando para instalar dependencias
+    buildCommand: pip install -r requirements.txt
+    # Comando para iniciar el servidor con Gunicorn
+    # app:app = archivo app.py, objeto Flask llamado app
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+    # Plan gratuito de Render
+    plan: free
+    # Variables de entorno
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11.0
